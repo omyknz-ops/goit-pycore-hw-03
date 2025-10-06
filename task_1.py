@@ -16,4 +16,4 @@ def get_days_from_today(date_string):
     # Example usage
 print (get_days_from_today("2026-10-06")) # checking the function
 print (get_days_from_today("2023-10-06")) # checking the function
-print (get_days_from_today("13.14.2000")) # checking the function with
+print (get_days_from_today("13.14.2000")) # checking the function with invalid date format
