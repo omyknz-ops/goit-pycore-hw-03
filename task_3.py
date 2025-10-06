@@ -4,14 +4,19 @@ def normalize_phone(phone_number):
     # Remove all non-digit characters
    digits = re.sub(r'[^\d+]', '', phone_number) #remove [^\d] — all symbols, except digits and +
    clean = digits #assign cleaned digits to variable clean
-   
-   # Normalize to +380XXXXXXXXX format
-   if clean.startswith("+380") and len(clean) == 13:
-      return clean
+
+   # Normalize to +international format
+   if clean.startswith("+"): 
+      return clean #if starts with +, keep it
    elif clean.startswith("380") and len(clean) == 12:
-        return "+" + clean
+    return "+" + clean
+   elif clean.startswith("+380") and len(clean) == 13: 
+      return clean
    elif clean.startswith("0") and len(clean) == 10:
       return "+38" + clean
+   elif clean.startswith("8") and len(clean) == 11:
+    # 8XXXXXXXXXX → +38XXXXXXXXXX
+    return "+3" + clean[1:]
    else:
       raise ValueError("Invalid phone number") #raise error if number is invalid
    
@@ -25,6 +30,7 @@ phone_number = [
     "     0503451234",
     "(050)8889900",
     "38050-111-22-22",
+    "+421 952 009 200",
     "38050 111 22 11   ",
 ]
 sanitized_numbers = [normalize_phone(num) for num in phone_number] #list comprehension to apply normalize_phone to each number in phone_number list
